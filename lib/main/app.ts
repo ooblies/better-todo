@@ -5,16 +5,16 @@ import appIcon from '@/resources/build/icon.png?asset'
 
 export function createAppWindow(): void {
   const mainWindow = new BrowserWindow({
-    width: 900,
+    width: 1400,
     height: 670,
     show: false,
     backgroundColor: '#1c1c1c',
     icon: appIcon,
     frame: false,
     titleBarStyle: 'hiddenInset',
-    title: 'Electron React App',
+    title: 'To-Do',
     maximizable: false,
-    resizable: false,
+    resizable: true,
     webPreferences: {
       preload: join(__dirname, '../preload/preload.js'),
       sandbox: false,

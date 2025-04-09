@@ -1,11 +1,17 @@
 {
   "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
-  "include": ["lib/main/index.d.ts", "electron.vite.config.*", "lib/**/*", "resources/**/*"],
+  "include": ["lib/main/index.d.ts", "electron.vite.config.*", "lib/**/*", "resources/**/*", "app/components/Header.tsx", "app/pages/Config.tsx", "app/pages/Home.tsx", "app/pages/Todo.tsx"],
+  "exclude": ["node_modeules"],
   "compilerOptions": {
     "composite": true,
     "moduleResolution": "bundler",
     "types": ["electron-vite/node"],
+    "outDir": "./dist/server",
     "baseUrl": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "paths": {
       "@/*": ["./*"]
     }

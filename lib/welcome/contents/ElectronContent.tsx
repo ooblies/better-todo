@@ -6,7 +6,7 @@ const ElectronContent = () => {
   return (
     <div>
       <h2>Electron</h2>
-      <p>With the power of modern Chromium, Electron gives you an unopinionated blank slate to build your app.</p>
+      <p>Test</p>
       <p>
         Choose to integrate your favourite libraries and frameworks from the front-end ecosystem, or carve your own path
         with bespoke HTML code.

@@ -24,14 +24,23 @@
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,.vue --fix",
     "start": "electron-vite preview",
     "postinstall": "electron-builder install-app-deps",
-    "build:unpack": "electron-vite build && electron-builder --dir",
     "build:win": "electron-vite build && electron-builder --win",
-    "build:mac": "electron-vite build && electron-builder --mac",
-    "build:linux": "electron-vite build && electron-builder --linux"
+    "server": "nodemon ./server/index.ts"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
-    "@electron-toolkit/utils": "^4.0.0"
+    "@electron-toolkit/utils": "^4.0.0",
+    "@types/axios": "^0.9.36",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "axios": "^1.8.4",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mssql": "^11.0.1",
+    "nodemon": "^3.1.9",
+    "primereact": "^10.9.4",
+    "react-router": "^7.5.0",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^2.0.0",

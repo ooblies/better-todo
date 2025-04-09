@@ -24,6 +24,8 @@
   --window-c-scrollbar-thumb: #88888863;
   --window-c-scrollbar-thumb-hover: #555;
   --window-c-text-shadow: #000000a8;
+
+  --window-header-background: rgb(77, 76, 76);
 }
 
 :root.light {
@@ -47,6 +49,61 @@
   --window-c-scrollbar-thumb: #b0b0b0;
   --window-c-scrollbar-thumb-hover: #888888cf;
   --window-c-text-shadow: transparent;
+
+  --window-header-background: lightgray;
+}
+
+.bold {
+  font-weight: bold;
+  font-size: larger;
+}
+
+.header {
+  background-color: var(--window-header-background);
+  padding: 8px;
+  
+  display:flex;
+}
+.header a {
+  color: var(--window-c-text);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0 8px;
+  border-radius: 4px;
+}
+.header a:hover {
+  background-color: var(--window-c-hover);
+}
+.header a.active {
+  background-color: var(--window-c-hover);
+  color: var(--window-c-text);
+}
+
+.header span {
+  flex-grow:1;
+}
+.home {
+  padding: 8px 16px;
+}
+.todo {
+  display: flex;
+  padding: 16px;
+}
+.todo_nav {
+  margin-right: 64px;
+}
+.todo_nav_choice {
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+.todo_nav_choice:hover {
+  background-color: var(--window-c-hover);
+}
+
+.config {
+  padding: 8px 16px;
 }
 
 .window-frame {
@@ -66,7 +123,7 @@
 
 /* Assign last children to use full height of window content */
 .window-content div:last-child {
-  height: 100%;
+  /* height: 100%; */
 }
 
 .window-titlebar {
