@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect } from 'react'
+import { FaCircle } from "react-icons/fa";
 
 const Config = () => {
   const [connected, setConnected] = React.useState(false);
@@ -46,9 +47,9 @@ const Config = () => {
 
   return (
     <div className='config'>
-      <p>Server: {connected ? "✅" : "❌"}</p>
-      <p>Database: {databaseExists ? "✅" : "❌"}</p>
-      <p>ToDo's: {todocount >= 0 ? todocount : "❌"}</p>
+      <p style={{alignItems: "center", display: "flex", gap:"0.5rem"}}>Server: <FaCircle className={connected ? 'green' : 'red'} /></p>
+      <p style={{alignItems: "center", display: "flex", gap:"0.5rem"}}>Database: <FaCircle className={databaseExists ? 'green' : 'red'} /></p>
+      <p style={{alignItems: "center", display: "flex", gap:"0.5rem"}}>ToDo's: {todocount && todocount >= 0 ? todocount : ''}<FaCircle className={todocount && todocount >= 0 ? 'green' : 'red'} /></p>
       <br/>
       <p>Server Name</p>
       <input type="text" value={serverName}  onChange={(e) => setServerName(e.target.value)} />

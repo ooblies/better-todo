@@ -5,8 +5,8 @@ import appIcon from '@/resources/build/icon.png?asset'
 
 export function createAppWindow(): void {
   const mainWindow = new BrowserWindow({
-    width: 1400,
-    height: 670,
+    width: 1920,
+    height: 1080,
     show: false,
     backgroundColor: '#1c1c1c',
     icon: appIcon,

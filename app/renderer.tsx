@@ -10,7 +10,7 @@ import Home from '@/app/pages/Home'
 import Config from '@/app/pages/Config'
 import Todo from '@/app/pages/Todo'
 
-import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
+import { PrimeReactProvider } from 'primereact/api';
 
 import './styles/tailwind.css'
 import './styles/main.css'

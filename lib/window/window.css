@@ -60,17 +60,22 @@
 
 .header {
   background-color: var(--window-header-background);
-  padding: 8px;
+  padding: 2rem;
   
   display:flex;
+  align-items: center;
+  gap: 2rem;
+  height:3rem;
 }
 .header a {
   color: var(--window-c-text);
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
-  padding: 0 8px;
   border-radius: 4px;
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
 }
 .header a:hover {
   background-color: var(--window-c-hover);
@@ -92,6 +97,7 @@
 }
 .todo_nav {
   margin-right: 64px;
+  
 }
 .todo_nav_choice {
   border-radius: 4px;
@@ -101,10 +107,46 @@
 .todo_nav_choice:hover {
   background-color: var(--window-c-hover);
 }
+.todo_table {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--window-c-separator);
+}
+.row span {
+  flex-grow:1;
+}
+.options_row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.cellEdit {
+  width:100%
+}
 
 .config {
   padding: 8px 16px;
 }
+
+.green {
+  color:green
+}
+.red {
+  color:red
+}
+
+
 
 .window-frame {
   display: flex;
@@ -112,6 +154,9 @@
   user-select: none;
   background-color: var(--window-c-background);
   transition: background-color var(--window-background-transition-duration) ease;
+  height: 100%;
+  width: 100%;
+  position: fixed;
 }
 
 .window-content {

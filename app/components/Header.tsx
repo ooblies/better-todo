@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useEffect } from 'react'
 import { NavLink } from 'react-router'
+import { FaCircle } from "react-icons/fa";
+
 
 const Header = () => {
-  const [todocount, setTodocount] = React.useState(0);
+  const [todoCount, setTodocount] = React.useState(0);
 
   const [serverName, setServerName] = React.useState<string>("OOBDESK\\SQLEXPRESS")
   const [databaseName, setDatabaseName] = React.useState<string >("ToDo")
@@ -57,9 +59,11 @@ const Header = () => {
     <div className="header">
         <NavLink to="/">Home</NavLink>
         <NavLink to="/todo">To-Do</NavLink>
-        <NavLink to="/config">Config {todocount > 0 ? '✅' : '❌'}</NavLink>
+        <NavLink to="/config">Config <FaCircle className={todoCount && todoCount > 0 ? 'green' : 'red'} /></NavLink>
         <span></span>
-        <button onClick={toggle_lightmode}>{isLight ? 'Dark' : 'Light'} Mode</button>
+        <div style={{display: "flex", alignItems: "center", gap: "1rem"}}>
+          <button onClick={toggle_lightmode}>{isLight ? 'Dark' : 'Light'} Mode</button>
+        </div>
     </div>
   )
 }
