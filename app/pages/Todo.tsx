@@ -304,7 +304,9 @@ const Todo = () => {
   }
 
   function guessDataType(field: string) {
+
     var data = viewData.map(a => a[field]);
+    data = data.map(item => item === "" ? null : item);
     data = data.filter((item) => item !== null && item !== undefined);
 
     if (field === "Done") {
@@ -351,7 +353,6 @@ const Todo = () => {
     console.log("Column: ", column, dataType)
 
     if (dataType == "boolean") {
-      console.log(options)
       return <div style={{paddingLeft: "0.5rem"}}>
           <Checkbox checked={options.rowData[column]} onChange={(e) => options.editorCallback(!options.rowData[column])} />
         </div>
@@ -361,8 +362,6 @@ const Todo = () => {
       </div>
     } else if (dataType == "dropdown") {
       var field = column.slice(0, -2);
-      console.log("Options: ", options)
-      console.log("Value: ", options.rowData[column])
       if (field === "Who") {
         return <Dropdown options={who} optionLabel="Name" value={options.rowData[column]} onChange={(e) => options.editorCallback(e.value)} placeholder="Who..." />;
       } else if (field === "Category") {
