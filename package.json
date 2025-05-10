@@ -1,12 +1,14 @@
 {
   "name": "better_todo",
-  "version": "10.1.0",
+  "version": "0.1.0",
+  "author": "Chris Dudziak",
+  "private": true,
   "description": "A better ToDo app",
   "main": "./out/main/main.js",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/guasam/electron-react-app"
+    "url": "https://github.com/ooblies/better-todo"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -19,10 +21,12 @@
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,.vue --fix",
     "postinstall": "electron-builder install-app-deps",
-    "build:win": "electron-vite build && electron-builder --win && D:\\Projects\\GitHub\\better_todo\\dist\\win-unpacked\\BetterToDo.exe",
+    "build:win": "electron-vite build && electron-builder --win",
     "server": "nodemon ./server/index.ts",
-    "exe": "D:\\Projects\\GitHub\\better_todo\\dist\\win-unpacked\\BetterToDo.exe"
+    "exe": "D:\\Projects\\GitHub\\better_todo\\dist\\win-unpacked\\BetterToDo.exe",
+    "buildAndRun": "electron-vite build && electron-builder --win && D:\\Projects\\GitHub\\better_todo\\dist\\win-unpacked\\BetterToDo.exe"
   },
+
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^4.0.0",

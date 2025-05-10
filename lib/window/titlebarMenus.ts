@@ -132,18 +132,5 @@ export const menuItems: TitlebarMenu[] = [
         shortcut: 'Ctrl+W',
       },
     ],
-  },
-  /*
-  {
-    name: 'Credits',
-    items: [
-      {
-        name: 'Guasam',
-        action: 'web-open-url',
-        actionParams: ['https://github.com/guasam'],
-        shortcut: '@guasam',
-      },
-    ],
-  },
-  */
+  }
 ]
