@@ -1,6 +1,6 @@
 {
   "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
-  "include": ["lib/main/index.d.ts", "electron.vite.config.*", "lib/**/*", "resources/**/*", "app/components/Header.tsx", "app/pages/Config.tsx", "app/pages/Home.tsx", "app/pages/Todo.tsx"],
+  "include": ["lib/main/index.d.ts", "electron.vite.config.*", "lib/**/*", "resources/**/*", "app/components/Header.tsx", "app/pages/Config.tsx", "app/pages/Home.tsx", "app/pages/Todo.tsx","server/*.ts", "server/index.js"],
   "exclude": ["node_modeules"],
   "compilerOptions": {
     "composite": true,

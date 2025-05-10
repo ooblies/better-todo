@@ -415,6 +415,7 @@ const Todo = () => {
         </div>
 
         {selectedView && (
+
           <div className='todo_table'>
             <div className='row'>
               <div className='bold' >{selectedView.Name}</div>  
@@ -429,7 +430,7 @@ const Todo = () => {
 
             </div>
             <br/>
-            <DataTable value={getFilteredData()} className="p-datatable-striped" editMode="row" onRowEditComplete={editRow} removableSort showGridlines scrollable resizableColumns tableStyle={{ minWidth: '85rem', width: '100%' }} size={size}>
+            <DataTable scrollHeight="flex" value={getFilteredData()} className="p-datatable-striped" editMode="row" onRowEditComplete={editRow} removableSort showGridlines scrollable resizableColumns tableStyle={{ minWidth: '85rem', width: '100%' }} size={size}>
               {Object.keys(viewData[0] || {}).map((key, index) => {
                   var header = key;
 

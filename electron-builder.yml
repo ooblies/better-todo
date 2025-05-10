@@ -1,5 +1,5 @@
 appId: com.guasam.era
-productName: ElectronReactApp
+productName: BetterToDo
 directories:
   buildResources: resources/build
 files:
@@ -12,20 +12,12 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: ElectronReactApp
+  executableName: BetterToDo
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
-mac:
-  entitlementsInherit: resources/build/entitlements.mac.plist
-  extendInfo:
-    - NSCameraUsageDescription: Application requests access to the device's camera.
-    - NSMicrophoneUsageDescription: Application requests access to the device's microphone.
-    - NSDocumentsFolderUsageDescription: Application requests access to the user's Documents folder.
-    - NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
-  notarize: false
 dmg:
   artifactName: ${name}-${version}.${ext}
 linux:

@@ -1,20 +1,9 @@
-import * as express from 'express';
-import * as cors from "cors"
+import express from 'express';
+import cors from "cors"
+import sql from 'mssql';
+//sql = require('mssql');
 
-const sql = require('mssql');
-
-interface Config {
-    server?: string;
-    database?: string;
-    user?: string;
-    password?: string;
-    port?: number;
-    options?: {
-        trustServerCertificate?: boolean;
-    };
-}
-
-const config: Config = {};
+console.log("Running Server File")
 
 const app = express();
 
@@ -23,15 +12,9 @@ app.use(express.json());
 
 const port = process.env.PORT || 3030;
 
+const config = {};
 
-interface ConnectionResults {
-    connects: boolean;
-    exists: boolean;
-    count: number;
-}
-
-
-app.post('/updateRow', async (req: express.Request, res: express.Response) => {
+app.post('/updateRow', async (req, res) => {
     console.log("/updateRow")
     console.log("Body: ", req.body)
 
@@ -56,7 +39,7 @@ app.post('/updateRow', async (req: express.Request, res: express.Response) => {
     }
 });
 
-app.post('/createRow', async (req: express.Request, res: express.Response) => {
+app.post('/createRow', async (req, res) => {
     console.log("/createRow")
     console.log("Body: ", req.body)
     try {
@@ -93,7 +76,7 @@ app.post('/createRow', async (req: express.Request, res: express.Response) => {
     }
 });
 
-app.post('/testconnection', async (req: express.Request, res: express.Response) => {
+app.post('/testconnection', async (req, res) => {
     console.log("/testconnection")
 
     config.server = req.body.config.serverName;
@@ -106,7 +89,7 @@ app.post('/testconnection', async (req: express.Request, res: express.Response) 
     };
 
         
-    var results : ConnectionResults = {
+    var results = {
         connects: false,
         exists: false,
         count: -1
@@ -157,7 +140,7 @@ async function testConnection() {
     }
 }
 
-app.get('/listSprocs', async (req: express.Request, res: express.Response) => {
+app.get('/listSprocs', async (req, res) => {
     console.log("/listSprocs")
     try {
         const pool = await sql.connect(config);
@@ -170,7 +153,7 @@ app.get('/listSprocs', async (req: express.Request, res: express.Response) => {
     }
 });
 
-app.post('/executeSproc', async (req: express.Request, res: express.Response) => {
+app.post('/executeSproc', async (req, res) => {
     console.log("/executeSproc")
     const sprocName = req.body.sprocName;
     try {
@@ -184,7 +167,7 @@ app.post('/executeSproc', async (req: express.Request, res: express.Response) =>
     }
 });
 
-app.get('/listViews', async (req: express.Request, res: express.Response) => {
+app.get('/listViews', async (req, res) => {
     console.log("/listViews")
     try {
         const pool = await sql.connect(config);
@@ -199,7 +182,7 @@ app.get('/listViews', async (req: express.Request, res: express.Response) => {
     }
 });
 
-app.get('/getView/:viewName', async (req: express.Request, res: express.Response) => {
+app.get('/getView/:viewName', async (req, res) => {
     console.log("/getView")
     const viewName = req.params.viewName;
     try {
@@ -214,12 +197,12 @@ app.get('/getView/:viewName', async (req: express.Request, res: express.Response
     }
 });
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (req, res) => {
     console.log("/")
     res.send("This is from the API");
 });
 
-app.post('/markItemAsDoneById', async (req: express.Request, res: express.Response) => {
+app.post('/markItemAsDoneById', async (req, res) => {
     console.log("/markItemAsDoneById")
     const itemId = req.body.itemId;
     const done = req.body.done;
@@ -238,7 +221,7 @@ app.post('/markItemAsDoneById', async (req: express.Request, res: express.Respon
     }
 });
 
-app.post('/incrementItemDate', async (req: express.Request, res: express.Response) => {
+app.post('/incrementItemDate', async (req, res) => {
     console.log("/incrementItemDate")
     const itemId = req.body.itemId;
     try {
@@ -255,7 +238,7 @@ app.post('/incrementItemDate', async (req: express.Request, res: express.Respons
     }
 });
 
-app.get('/getCategories', async (req: express.Request, res: express.Response) => {
+app.get('/getCategories', async (req, res) => {
     console.log("/getCategories")
     try {
         const pool = await sql.connect(config);
@@ -269,7 +252,7 @@ app.get('/getCategories', async (req: express.Request, res: express.Response) =>
     }
 });
 
-app.get('/getWhos', async (req: express.Request, res: express.Response) => {
+app.get('/getWhos', async (req, res) => {
     console.log("/getWhos")
     try {
         const pool = await sql.connect(config);
@@ -284,7 +267,7 @@ app.get('/getWhos', async (req: express.Request, res: express.Response) => {
 }
 );
 
-app.post('/decrementItemDate', async (req: express.Request, res: express.Response) => {
+app.post('/decrementItemDate', async (req, res) => {
     console.log("/decrementDate")
     const itemId = req.body.itemId;
     try {
@@ -301,7 +284,7 @@ app.post('/decrementItemDate', async (req: express.Request, res: express.Respons
     }
 });
 
-app.post('/deleteRow', async (req: express.Request, res: express.Response) => {
+app.post('/deleteRow', async (req, res) => {
     console.log("/deleteRow")
     const itemId = req.body.itemId;
     try {

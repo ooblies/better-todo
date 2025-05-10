@@ -1,6 +1,7 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, utilityProcess } from 'electron'
 import { electronApp, optimizer } from '@electron-toolkit/utils'
 import { createAppWindow } from './app'
+import { join } from 'path'
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -9,7 +10,11 @@ app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
   // Create app window
+  console.log('Running app')
   createAppWindow()
+  
+  console.log('Running server @ ', join(__dirname,'../../server/index.js'))
+  utilityProcess.fork(join(__dirname,'../../server/index.js'), [], {})
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
@@ -35,6 +40,3 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
-
-// In this file, you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.

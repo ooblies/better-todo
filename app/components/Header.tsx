@@ -60,6 +60,7 @@ const Header = () => {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/todo">To-Do</NavLink>
         <NavLink to="/config">Config <FaCircle className={todoCount && todoCount > 0 ? 'green' : 'red'} /></NavLink>
+        <NavLink to="/ReadMe">ReadMe</NavLink>
         <span></span>
         <div style={{display: "flex", alignItems: "center", gap: "1rem"}}>
           <button onClick={toggle_lightmode}>{isLight ? 'Dark' : 'Light'} Mode</button>

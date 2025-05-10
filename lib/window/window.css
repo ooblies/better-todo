@@ -93,7 +93,9 @@
 }
 .todo {
   display: flex;
+  flex-direction: row;
   padding: 16px;
+  height: calc(100vh - 240px);
 }
 .todo_nav {
   margin-right: 64px;
@@ -108,6 +110,8 @@
   background-color: var(--window-c-hover);
 }
 .todo_table {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
