@@ -20,5 +20,13 @@ jobs:
           body: Updated to version ${{ github.ref_name }}
           draft: false
           prerelease: false
-          assets:
-            - dist/*
+      - name: Upload Asset
+        uses: actions/upload-release-asset@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/better_todo-${{ github.ref_name }}-setup.exe
+          asset_name: your_file.zip
+          asset_content_type: application/zip
+          
