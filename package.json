@@ -26,7 +26,6 @@
     "exe": "D:\\Projects\\GitHub\\better_todo\\dist\\win-unpacked\\BetterToDo.exe",
     "buildAndRun": "electron-vite build && electron-builder --win && D:\\Projects\\GitHub\\better_todo\\dist\\win-unpacked\\BetterToDo.exe"
   },
-
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^4.0.0",
@@ -66,5 +65,27 @@
     "tailwindcss": "^4.0.9",
     "typescript": "^5.7.3",
     "vite": "^6.2.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-android-arm-eabi": "4.39.0",
+    "@rollup/rollup-android-arm64": "4.39.0",
+    "@rollup/rollup-darwin-arm64": "4.39.0",
+    "@rollup/rollup-darwin-x64": "4.39.0",
+    "@rollup/rollup-freebsd-arm64": "4.39.0",
+    "@rollup/rollup-freebsd-x64": "4.39.0",
+    "@rollup/rollup-linux-arm-gnueabihf": "4.39.0",
+    "@rollup/rollup-linux-arm-musleabihf": "4.39.0",
+    "@rollup/rollup-linux-arm64-gnu": "4.39.0",
+    "@rollup/rollup-linux-arm64-musl": "4.39.0",
+    "@rollup/rollup-linux-loongarch64-gnu": "4.39.0",
+    "@rollup/rollup-linux-powerpc64le-gnu": "4.39.0",
+    "@rollup/rollup-linux-riscv64-gnu": "4.39.0",
+    "@rollup/rollup-linux-riscv64-musl": "4.39.0",
+    "@rollup/rollup-linux-s390x-gnu": "4.39.0",
+    "@rollup/rollup-linux-x64-gnu": "4.39.0",
+    "@rollup/rollup-linux-x64-musl": "4.39.0",
+    "@rollup/rollup-win32-arm64-msvc": "4.39.0",
+    "@rollup/rollup-win32-ia32-msvc": "4.39.0",
+    "@rollup/rollup-win32-x64-msvc": "4.39.0"
   }
 }
