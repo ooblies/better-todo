@@ -21,4 +21,4 @@ jobs:
           draft: false
           prerelease: false
           assets:
-            - dist/*.exe
+            - dist/*
