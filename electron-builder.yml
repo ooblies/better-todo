@@ -1,4 +1,4 @@
-appId: com.guasam.era
+appId: com.dudziak
 productName: BetterToDo
 directories:
   buildResources: resources/build
