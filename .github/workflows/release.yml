@@ -21,7 +21,7 @@ jobs:
       - name: Install Wine
         run: |
           sudo apt-get update
-          sudo apt-get install wine
+          sudo apt-get install wine32
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
