@@ -86,6 +86,7 @@
     "@rollup/rollup-linux-x64-musl": "4.39.0",
     "@rollup/rollup-win32-arm64-msvc": "4.39.0",
     "@rollup/rollup-win32-ia32-msvc": "4.39.0",
-    "@rollup/rollup-win32-x64-msvc": "4.39.0"
+    "@rollup/rollup-win32-x64-msvc": "4.39.0",
+    "lightningcss": "^1.21.0"
   }
 }
