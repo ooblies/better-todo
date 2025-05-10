@@ -4,14 +4,33 @@ on:
   push:
     tags:
       - v*
+
+env:
+  NODE_VERSION: '20'                # set this to the node version to use
+  
+permissions:
+  contents: read
+  
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: npm install
+        run: npm install
+
       - name: Run build
         run: npm run build:win
+
       - name: Create Release
         uses: actions/create-release@v1
         with:
