@@ -9,7 +9,7 @@ env:
   NODE_VERSION: '20'                # set this to the node version to use
   
 permissions:
-  contents: read,write
+  contents: write
   
 jobs:
   release:
