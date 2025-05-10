@@ -14,7 +14,7 @@ asarUnpack:
 win:
   executableName: BetterToDo
 nsis:
-  artifactName: ${name}-${version}-setup.${ext}
+  artifactName: ${name}_setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always

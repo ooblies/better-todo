@@ -38,23 +38,11 @@ jobs:
         run: npm run build:win
 
       - name: Create Release
-        uses: actions/create-release@v1
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
-          release_name: ${{ github.ref_name }}
-          body: Updated to version ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          files: ./dist/better_todo_setup.exe
           draft: false
           prerelease: false
-
-      - name: Upload Asset
-        uses: actions/upload-release-asset@v1
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/better_todo-${{ github.ref_name }}-setup.exe
-          asset_name: your_file.zip
-          asset_content_type: application/zip
+          generate_release_notes: true          
           
