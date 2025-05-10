@@ -7,36 +7,62 @@ import { FaCircle } from "react-icons/fa";
 const Header = () => {
   const [todoCount, setTodocount] = React.useState(0);
 
-  const [serverName, setServerName] = React.useState<string>("OOBDESK\\SQLEXPRESS")
-  const [databaseName, setDatabaseName] = React.useState<string >("ToDo")
-  const [userName, setUserName] = React.useState<string >("admin")
-  const [password, setPassword] = React.useState<string >("admin")
-
   const [isLight, setIsLight] = React.useState<boolean>(false)
 
+  const [config, setConfig] = React.useState<any>({})
+
   useEffect(() => {
-    connect()
+    getStatus()
+
   }, [])
 
-  function connect() {
-    console.log("Connecting to server...")
+  function getStatus() {
+    console.log("Checking for new todos...")
 
-    var config = {
-      serverName: serverName,
-      databaseName: databaseName,
-      userName: userName,
-      password: password
-    }
-    // set content type to "application/json"
-    axios.defaults.headers.post['Content-Type'] = 'application/json';
-
+    var savedConfig = loadConfig()
     
+    if (savedConfig) {
+      connect(savedConfig)
+    }
+  }
+
+  function loadConfig() {
+    var configStorage = localStorage.getItem("config")
+    var jsonConfig = JSON.parse(configStorage || '{}')
+
+    if (configStorage) {
+      console.log("Loading Config: ", jsonConfig)
+
+      if (jsonConfig.serverName) {
+        console.log("setting config values")
+        setConfig(jsonConfig)
+
+        return jsonConfig
+        
+      }
+
+    } else {
+      console.log("No config found")
+      return false
+    }
+
+    return false
+  }
+  
+  
+  function connect(c : any = {}) {
+    console.log("Connecting to server...")
+    axios.defaults.headers.post['Content-Type'] = 'application/json';
+    
+    var serverConfig = (c && c.serverName) ? c : config
+
     axios.post('http://localhost:3030/testconnection', {
-        config: config,
+        config: serverConfig,
     })
       .then(response => {
         console.log("Connected")
         setTodocount(response.data.count)
+
       })
       .catch(error => {
         console.log("Error Connecting to the Database")

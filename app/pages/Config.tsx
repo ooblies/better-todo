@@ -7,41 +7,84 @@ const Config = () => {
   const [databaseExists, setDatabaseExists] = React.useState(false);
   const [todocount, setTodocount] = React.useState(0);
 
-  const [serverName, setServerName] = React.useState<string>("OOBDESK\\SQLEXPRESS")
-  const [databaseName, setDatabaseName] = React.useState<string >("ToDo")
-  const [userName, setUserName] = React.useState<string >("admin")
-  const [password, setPassword] = React.useState<string >("admin")
+  //"OOBDESK\\SQLEXPRESS"
+  //ToDo
+  //admin
+  //admin
+
+  const [config, setConfig] = React.useState<any>({})
+
 
   useEffect(() => {
-    connect()
+    var savedConfig = loadConfig()
+    if (savedConfig) {
+      connect(savedConfig)
+    }
+
   }, [])
 
-  function connect() {
-    console.log("Connecting to server...")
+  function loadConfig() {
+    var configStorage = localStorage.getItem("config")
+    var jsonConfig = JSON.parse(configStorage || '{}')
 
-    var config = {
-      serverName: serverName,
-      databaseName: databaseName,
-      userName: userName,
-      password: password
+    if (configStorage) {
+      console.log("Loading Config: ", jsonConfig)
+
+      if (jsonConfig.serverName) {
+        console.log("setting config values")
+        setConfig(jsonConfig)
+
+        return jsonConfig
+        
+      }
+
+    } else {
+      console.log("No config found")
+      return false
     }
-    // set content type to "application/json"
-    axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-    
-    axios.post('http://localhost:3030/testconnection', {
-        config: config,
-    })
-      .then(response => {
-        console.log("Connected")
-        setConnected(response.data.connects)
-        setDatabaseExists(response.data.exists)
-        setTodocount(response.data.count)
+    return false
+  }
+
+  function saveConfig() {
+    if (config) {
+
+      var configObj = JSON.stringify({
+        serverName: config.serverName,
+        databaseName: config.databaseName,
+        userName: config.userName,
+        password: config.password
       })
-      .catch(error => {
-        console.log("Error Connecting to the Database")
-        console.error(error);
-      });
+
+      if (todocount >= 0 && config.serverName && config.databaseName && config.userName && config.password) {
+        localStorage.setItem("config", configObj)
+        console.log("Config Saved: ", configObj)
+      }
+    }
+  }
+
+  function connect(c : any = {}) {
+    console.log("Connecting to server...")
+    axios.defaults.headers.post['Content-Type'] = 'application/json';
+    
+    var serverConfig = (c && c.serverName) ? c : config
+
+    axios.post('http://localhost:3030/testconnection', {
+        config: serverConfig,
+    })
+    .then(response => {
+      console.log("Connected")
+      setConnected(response.data.connects)
+      setDatabaseExists(response.data.exists)
+      setTodocount(response.data.count)
+
+      saveConfig()
+    })
+    .catch(error => {
+      console.log("Error Connecting to the Database")
+      console.error(error);
+    });
+
 
   }
 
@@ -52,13 +95,13 @@ const Config = () => {
       <p style={{alignItems: "center", display: "flex", gap:"0.5rem"}}>ToDo's: {todocount && todocount >= 0 ? todocount : ''}<FaCircle className={todocount && todocount >= 0 ? 'green' : 'red'} /></p>
       <br/>
       <p>Server Name</p>
-      <input type="text" value={serverName}  onChange={(e) => setServerName(e.target.value)} />
+      <input type="text" value={config.serverName}   onChange={(e) => {setConfig({ ...config, serverName: e.target.value})}} />
       <p>Database Name</p>
-      <input type="text" value={databaseName} onChange={(e) => setDatabaseName(e.target.value)} />
+      <input type="text" value={config.databaseName} onChange={(e) => {setConfig({ ...config, databaseName: e.target.value})}}/>
       <p>User Name</p>
-      <input type="text" value={userName}  onChange={(e) => setUserName(e.target.value)} />
+      <input type="text" value={config.userName}     onChange={(e) => {setConfig({ ...config, userName: e.target.value})}}/>
       <p>Password</p>
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <input type="password" value={config.password} onChange={(e) => {setConfig({ ...config, password: e.target.value})}}/>
       <br/><br/>
       <button onClick={() => connect()}>Connect</button>
     </div>
