@@ -6,6 +6,7 @@ const Config = () => {
   const [connected, setConnected] = React.useState(false);
   const [databaseExists, setDatabaseExists] = React.useState(false);
   const [todocount, setTodocount] = React.useState(0);
+  const [error, setError] = React.useState("");
 
   //"OOBDESK\\SQLEXPRESS"
   //ToDo
@@ -46,17 +47,25 @@ const Config = () => {
     return false
   }
 
-  function saveConfig() {
-    if (config) {
+  function deleteConfig() {
+    console.log("Deleting Config")
+    localStorage.removeItem("config")
+    setConfig({})
+  }
+
+  function saveConfig(c : any = {}) {
+    var configToSave = (c && c.serverName) ? c : config
+
+    if (configToSave) {
 
       var configObj = JSON.stringify({
-        serverName: config.serverName,
-        databaseName: config.databaseName,
-        userName: config.userName,
-        password: config.password
+        serverName: configToSave.serverName,
+        databaseName: configToSave.databaseName,
+        userName: configToSave.userName,
+        password: configToSave.password
       })
 
-      if (todocount >= 0 && config.serverName && config.databaseName && config.userName && config.password) {
+      if (todocount >= 0 && configToSave.serverName && configToSave.databaseName && configToSave.userName && configToSave.password) {
         localStorage.setItem("config", configObj)
         console.log("Config Saved: ", configObj)
       }
@@ -73,12 +82,13 @@ const Config = () => {
         config: serverConfig,
     })
     .then(response => {
-      console.log("Connected")
+      console.log("Connection : ", response.data)
       setConnected(response.data.connects)
       setDatabaseExists(response.data.exists)
       setTodocount(response.data.count)
+      setError(response.data.error)
 
-      saveConfig()
+      saveConfig(serverConfig)
     })
     .catch(error => {
       console.log("Error Connecting to the Database")
@@ -104,6 +114,16 @@ const Config = () => {
       <input type="password" value={config.password} onChange={(e) => {setConfig({ ...config, password: e.target.value})}}/>
       <br/><br/>
       <button onClick={() => connect()}>Connect</button>
+      <br/>
+      <br/>
+      <button style={{"backgroundColor":"red"}} onClick={() => deleteConfig()}>Delete Config</button>
+      {!todocount || todocount < 0 && (
+      <p>
+        <h1>Error</h1>
+        Error Message: <br/>
+        {error}
+      </p>
+      )}
     </div>
   )
 }

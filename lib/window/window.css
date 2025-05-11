@@ -91,6 +91,12 @@
 .home {
   padding: 8px 16px;
 }
+.readme {
+  padding: 8px 16px;
+}
+.report {
+  padding: 8px 16px;
+}
 .todo {
   display: flex;
   flex-direction: row;

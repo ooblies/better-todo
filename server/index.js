@@ -92,7 +92,8 @@ app.post('/testconnection', async (req, res) => {
     var results = {
         connects: false,
         exists: false,
-        count: -1
+        count: -1,
+        error: null
     };
 
     try {
@@ -116,6 +117,7 @@ app.post('/testconnection', async (req, res) => {
     
     } catch (err) {
         console.error("Error: ", err);
+        results.error = err.toString();
     }
 
     console.log("Results: ", results);
@@ -124,20 +126,14 @@ app.post('/testconnection', async (req, res) => {
 });
 
 async function testConnection() {
-    try {
-        // Make sure that any items are correctly URL encoded in the connection string
-        await sql.connect(config);
+    // Make sure that any items are correctly URL encoded in the connection string
+    await sql.connect(config);
 
-        console.log("Connected to " + config.server + "." + config.database);
+    console.log("Connected to " + config.server + "." + config.database);
 
-        sql.close()
+    sql.close()
 
-        return true;
-    }
-    catch (err) {
-        console.error("Error connecting to database: ", err);
-        return false;
-    }
+    return true;
 }
 
 app.get('/listSprocs', async (req, res) => {

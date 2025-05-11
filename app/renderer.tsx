@@ -9,6 +9,8 @@ import Home from '@/app/pages/Home'
 import Config from '@/app/pages/Config'
 import Todo from '@/app/pages/Todo'
 import Readme from './pages/Readme'
+import Report from './pages/Report'
+
 
 import { PrimeReactProvider } from 'primereact/api';
 
@@ -25,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('app') as HTMLElement).render(
             <Route path="/config" element={<Config />} />
             <Route path="/todo" element={<Todo />} />
             <Route path="/readme" element={<Readme />} />
+            <Route path="/report" element={<Report />} />
           </Routes>
         </HashRouter>
       </PrimeReactProvider>

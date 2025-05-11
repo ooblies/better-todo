@@ -30,7 +30,7 @@ END
 
 CREATE TABLE Category (
 	CategoryId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	Name NVARCHAR(10) NOT NULL,
+	Name NVARCHAR(255) NOT NULL,
 	CreatedOn DATETIME DEFAULT GETDATE(),
 	ModifiedOn DATETIME DEFAULT GETDATE()
 );
@@ -60,7 +60,7 @@ END
 
 CREATE TABLE Who (
 	WhoId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	Name NVARCHAR(10) NOT NULL,
+	Name NVARCHAR(255) NOT NULL,
 	CreatedOn DATETIME DEFAULT GETDATE(),
 	ModifiedOn DATETIME DEFAULT GETDATE()
 );
@@ -77,19 +77,22 @@ END
 
 CREATE TABLE ToDoItem (
 	ItemId BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	Name NVARCHAR(25) NULL,
-	ItemDate Date NULL,
+	Name NVARCHAR(255) NULL,
+	ItemDate Date NULL DEFAULT GETDATE(),
 	WhoId INT FOREIGN KEY REFERENCES Who (WhoId),
 	CategoryId INT FOREIGN KEY REFERENCES Category (CategoryId),
-	Status NVARCHAR(25) NULL,
+	Status NVARCHAR(255) NULL,
 	Cost INT NULL,
-	Notes NVARCHAR(50) NULL,
+	Notes NVARCHAR(255) NULL,
 	Done BIT DEFAULT 0,
 	CreatedOn DATETIME DEFAULT GETDATE(),
 	ModifiedOn DATETIME DEFAULT GETDATE()
 )
 
 GO
+
+ALTER TABLE todoItem
+ALTER COLUMN Notes NVARCHAR(255)
 
 INSERT INTO ToDoItem (Name, ItemDate, WhoId, CategoryId, Status, Cost, Notes, Done)
 SELECT 'ToDo Item', GETDATE(), 1,1,'Status',1,'Notes',0;
@@ -170,13 +173,13 @@ BEGIN
 	UPDATE ToDoItem
 	SET ItemDate = GETDATE(),
 		ModifiedOn = GETDATE()
-	WHERE Done IS NULL OR DONE = 0
-	AND ItemDate < GETDATE()
+	WHERE (Done IS NULL OR DONE = 0)
+	AND (ItemDate < GETDATE() OR ItemDate IS NULL)
 END
 GO
 
 
-CREATE OR ALTER PROCEDURE meta.UpdateMetadataAndListViews AS 
+CREATE OR ALTER PROCEDURE sproc.UpdateMetadataAndListViews AS 
 BEGIN
 	DECLARE @View nvarchar(255)
 
@@ -213,3 +216,46 @@ BEGIN
 
 	SELECT * FROM meta.views
 END
+GO
+
+exec meta.UpdateMetadataAndListViews
+
+update meta.views
+set updateable = 1
+
+
+update meta.views
+set UpdateTarget = 'ToDoItem',
+	UpdateKey = 'ItemId'
+WHERE Name in ('TodaysItems','AllItems','Unfinished')
+
+
+update meta.views
+set UpdateTarget = 'Who',
+	UpdateKey = 'WhoId',
+	SortOrder = 4
+WHERE Name in ('Who')
+
+
+update meta.views
+set UpdateTarget = 'Category',
+	UpdateKey = 'CategoryId',
+	SortOrder = 3
+WHERE Name in ('Category')
+
+Update meta.views
+set DisplayName = 'Today'
+WHERE Name = 'TodaysItems'
+
+
+Update meta.views
+set DisplayName = 'All'
+WHERE Name = 'AllItems'
+
+
+exec meta.UpdateMetadataAndListViews
+GO
+
+
+select ItemDate, CAST(DATEADD(dd,1,COALESCE(ItemDate, GETDATE())) AS DATE)
+from dbo.ToDoItem
